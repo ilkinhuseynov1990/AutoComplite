@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="inputGroup">
+        <input type="text" id="autoComplete" />
+    </div>
+
+    <script>
+        var autoComplete = document.querySelector('#autoComplete');
+
+        autoComplete.addEventListener('keyup', function () {
+            var text = this.value;
+
+            var request = new XMLHttpRequest();
+
+            request.open("GET", "/Home/AutoComplete?text="+text, true);
+
+            request.setRequestHeader('Content-type', 'application/json');
+
+            request.onreadystatechange = function () {
+                if (this.status == 200 && this.readyState == 4) {
+                    console.log(this.responseText);
+                }
+            }
+
+            request.send();
+        });
+    </script>
+</body>
+</html>
